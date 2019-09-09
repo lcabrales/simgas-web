@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolbarService } from 'src/services/toolbar/toolbar.service';
+import { ToolbarService } from '../toolbar/toolbar.service';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,10 +9,20 @@ import { ToolbarService } from 'src/services/toolbar/toolbar.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public toolbarService: ToolbarService) { }
+  username = null;
+  password = null;
+
+  constructor(public toolbarService: ToolbarService, private loginService: LoginService) { }
 
   ngOnInit() {
     this.toolbarService.hide();
   }
 
+  performLogin(){
+    this.loginService.login(this.username, this.password).subscribe(
+      res => {
+        //todo save in localStorage and route to main component
+        console.log(res);
+    });
+  }
 }

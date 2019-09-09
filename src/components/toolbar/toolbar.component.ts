@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolbarService } from 'src/services/toolbar/toolbar.service';
+import { ToolbarService } from './toolbar.service';
 
 @Component({
   selector: 'app-toolbar',

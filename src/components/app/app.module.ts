@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 /* Angular Material */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,10 +14,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /* Angular Flex Layout */
 import { FlexLayoutModule } from "@angular/flex-layout";
+
+/* Components */
 import { LoginComponent } from '../login/login.component';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 
-/* Components */
+/* Services */
+import { LoginService } from '../login/login.service';
 
 @NgModule({
   declarations: [
@@ -31,9 +35,12 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
     AngularMaterialModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    LoginService
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
