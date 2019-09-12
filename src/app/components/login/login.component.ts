@@ -3,6 +3,7 @@ import { ToolbarService } from '../toolbar/toolbar.service';
 import { LoginService } from './login.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { LoadingComponent } from '../loading/loading.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,10 +18,15 @@ export class LoginComponent implements OnInit {
 
   constructor(public toolbarService: ToolbarService, 
     private loginService: LoginService, 
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private router: Router) { }
 
   ngOnInit() {
     this.toolbarService.hide();
+
+    if (this.loginService.getUserLoggedIn) {
+      this.goToMain()
+    }
   }
 
   clearFields() {
@@ -36,8 +42,11 @@ export class LoginComponent implements OnInit {
         this.hideLoading();
         this.clearFields();
         this.loginService.setUserLoggedIn(res.user);
-        //TODO: route to main component
     });
+  }
+
+  goToMain() {
+    this.router.navigate(['/main']);
   }
 
   showLoading() {

@@ -24,11 +24,6 @@ body {
 	height: 100%;
 }
 
-.positronx {
-	text-decoration: none;
-	color: #ffffff;
-}
-
 .box {
 	position: relative;
 	top: 0;
@@ -78,6 +73,11 @@ body {
 .login-wrapper .full-width,
 .login-wrapper .btn-block {
 	width: 100%;
+}
+
+.login-wrapper .btn-block-margin {
+	width: 100%;
+	margin-top: 20px;
 }
 
 .login-wrapper mat-card-header {

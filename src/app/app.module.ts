@@ -19,9 +19,11 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { LoginComponent } from './components/login/login.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { RegisterComponent } from './components/register/register.component';
 
 /* Services */
 import { LoginService } from './components/login/login.service';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { LoginService } from './components/login/login.service';
     LoginComponent,
     ToolbarComponent,
     LoadingComponent,
+    RegisterComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
