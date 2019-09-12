@@ -22,11 +22,12 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.toolbarService.hide();
-
-    if (this.loginService.getUserLoggedIn) {
-      this.goToMain()
+    if (this.loginService.getUserLoggedIn()) {
+      this.goToMain();
+      return;
     }
+    
+    this.toolbarService.hide();
   }
 
   clearFields() {
@@ -37,11 +38,12 @@ export class LoginComponent implements OnInit {
   performLogin() {
     this.showLoading();
 
-    this.loginService.login(this.username, this.password).subscribe(
-      res => {
+    this.loginService.login(this.username, this.password)
+    .subscribe(response => {
         this.hideLoading();
         this.clearFields();
-        this.loginService.setUserLoggedIn(res.user);
+        this.loginService.setUserLoggedIn(response.Data);
+        this.goToMain();
     });
   }
 
