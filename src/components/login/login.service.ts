@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { baseUrl } from 'src/common/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
-  baseUrl = 'http://simgas-api.com:3000';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -19,7 +18,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
-    let url = this.baseUrl + '/Session/login';
+    let url = baseUrl + '/Session/login';
 
     let body = {
       Username: username,

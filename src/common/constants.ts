@@ -1,0 +1,1 @@
+export const baseUrl = 'http://simgas-api.com:3000';
