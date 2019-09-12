@@ -16,17 +16,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 /* Components */
-import { LoginComponent } from '../login/login.component';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { LoginComponent } from './components/login/login.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 /* Services */
-import { LoginService } from '../login/login.service';
+import { LoginService } from './components/login/login.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ToolbarComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,7 @@ import { LoginService } from '../login/login.service';
     LoginService
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [LoadingComponent]
 })
 export class AppModule { }
