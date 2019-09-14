@@ -60,4 +60,9 @@ export class LoginService {
     this.loggedUser = JSON.parse(localStorage.getItem(this.LOGGED_USER_KEY));
     return this.loggedUser;
   }
+
+  performLogout() {
+    this.loggedUser = null;
+    localStorage.removeItem(this.LOGGED_USER_KEY);
+  }
 }
