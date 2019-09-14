@@ -24,6 +24,7 @@ import { MainComponent } from './components/main/main.component';
 
 /* Services */
 import { LoginService } from './components/login/login.service';
+import { RegisterService } from './components/register/register.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { LoginService } from './components/login/login.service';
     HttpClientModule
   ],
   providers: [
-    LoginService
+    LoginService,
+    RegisterService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
