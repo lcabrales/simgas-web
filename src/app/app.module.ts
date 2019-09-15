@@ -21,10 +21,12 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MainComponent } from './components/main/main.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 /* Services */
 import { LoginService } from './components/login/login.service';
 import { RegisterService } from './components/register/register.service';
+import { ProfileService } from './components/profile/profile.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { RegisterService } from './components/register/register.service';
     LoadingComponent,
     RegisterComponent,
     MainComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { RegisterService } from './components/register/register.service';
   ],
   providers: [
     LoginService,
-    RegisterService
+    RegisterService,
+    ProfileService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

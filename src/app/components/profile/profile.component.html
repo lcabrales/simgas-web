@@ -1,0 +1,45 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+        <mat-card class="box">
+            <mat-card-header>
+                <mat-card-title>Mi Perfil</mat-card-title>
+            </mat-card-header>
+        
+            <form class="form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                <mat-card-content>
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="username" placeholder="Usuario" readonly>
+                        <mat-error *ngIf="f.username.errors && f.username.errors.required">
+                            {{requiredMessage}}
+                        </mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="firstName" placeholder="Nombre">
+                        <mat-error *ngIf="f.firstName.errors && f.firstName.errors.required">
+                            {{requiredMessage}}
+                        </mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="lastName" placeholder="Apellido">
+                        <mat-error *ngIf="f.lastName.errors && f.lastName.errors.required">
+                            {{requiredMessage}}
+                        </mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="email" placeholder="Correo electrónico" type="email">
+                        <mat-error *ngIf="f.email.errors && f.email.errors.required">
+                            {{requiredMessage}}
+                        </mat-error>
+                        <mat-error *ngIf="f.email.errors && f.email.errors.email">
+                            El correo electrónico no es válido.
+                        </mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+                <button mat-flat-button color="primary" class="btn-block btn-block-margin">Editar</button>
+            </form>
+        </mat-card>
+              
+        </div>

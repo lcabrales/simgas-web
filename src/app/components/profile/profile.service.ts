@@ -4,12 +4,13 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { UserResponse } from 'src/app/models/user/user.response';
 import { baseUrl } from 'src/app/common/constants';
-import { RegisterRequest } from 'src/app/models/register/register.request';
+import { ProfileRequest } from 'src/app/models/profile/profile.request';
+import { UserListResponse } from 'src/app/models/user/user.list.response';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterService {
+export class ProfileService {
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -19,12 +20,22 @@ export class RegisterService {
 
   constructor(private http: HttpClient) { }
 
-  register(request: RegisterRequest) {
+  get(userId: string) {
+    let url = `${baseUrl}/User?UserId=${userId}`;
+    
+    return this.http.get<UserListResponse>(url, this.httpOptions)    
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    );
+  }
+
+  update(request: ProfileRequest) {
     let url = baseUrl + '/User';
 
     let body = request;
     
-    return this.http.post<UserResponse>(url, body, this.httpOptions)    
+    return this.http.put<UserResponse>(url, body, this.httpOptions)    
     .pipe(
       retry(1),
       catchError(this.errorHandler)

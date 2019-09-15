@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
+import { ProfileService } from '../profile/profile.service';
+import { ToolbarService } from '../toolbar/toolbar.service';
 
 @Component({
   selector: 'app-main',
@@ -9,9 +11,28 @@ import { Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private toolbarService: ToolbarService,
+    private loginService: LoginService, 
+    private router: Router,
+    private profileService: ProfileService) { }
 
   ngOnInit() {
+    this.toolbarService.show();
+    this.updateLoggedInUser();
+  }
+
+  updateLoggedInUser(){
+    let user = this.loginService.getUserLoggedIn();
+    console.log(user.UserId);
+    this.profileService.get(user.UserId)
+    .subscribe(response => {
+      if (response.Result.Code != 200 || response.Data.length == 0) {
+        alert("Un error ha ocurrido");
+        return;
+      }
+
+      this.loginService.setUserLoggedIn(response.Data[0]);
+    });
   }
 
   logout() {
@@ -21,5 +42,9 @@ export class MainComponent implements OnInit {
 
   goToLogin() {
     this.router.navigate(['/']);
+  }
+
+  goToProfile() {
+    this.router.navigate(['/profile']);
   }
 }

@@ -1,4 +1,4 @@
 export interface Result {
-    code: number;
-    message: string;
+    Code: number;
+    Message: string;
 }
