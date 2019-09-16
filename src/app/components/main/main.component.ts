@@ -34,17 +34,4 @@ export class MainComponent implements OnInit {
       this.loginService.setUserLoggedIn(response.Data[0]);
     });
   }
-
-  logout() {
-    this.loginService.performLogout();
-    this.goToLogin();
-  }
-
-  goToLogin() {
-    this.router.navigate(['/']);
-  }
-
-  goToProfile() {
-    this.router.navigate(['/profile']);
-  }
 }
