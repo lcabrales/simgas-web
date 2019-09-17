@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit {
       this.hideLoading();
       
       if (response.Result.Code != 200) {
-        alert("Un error ha ocurrido");
+        alert(response.Result.Message);
         return;
       }
       

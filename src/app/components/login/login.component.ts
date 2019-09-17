@@ -42,6 +42,12 @@ export class LoginComponent implements OnInit {
     .subscribe(response => {
         this.hideLoading();
         this.clearFields();
+
+        if (response.Result.Code != 200) {
+          alert(response.Result.Message);
+          return;
+        }
+
         this.loginService.setUserLoggedIn(response.Data);
         this.goToMain();
     });
