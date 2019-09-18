@@ -27,6 +27,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { LoginService } from './components/login/login.service';
 import { RegisterService } from './components/register/register.service';
 import { ProfileService } from './components/profile/profile.service';
+import { SensorsService } from './components/main/sensors.service';
 
 @NgModule({
   declarations: [
@@ -46,12 +47,14 @@ import { ProfileService } from './components/profile/profile.service';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FlexLayoutModule
   ],
   providers: [
     LoginService,
     RegisterService,
-    ProfileService
+    ProfileService,
+    SensorsService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

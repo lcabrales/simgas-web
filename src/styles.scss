@@ -52,6 +52,14 @@ h1 {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.primary-background {
+  background-color: mat-color($simgas-web-primary);
+}
+
+.primary-color {
+  color: mat-color($simgas-web-primary);
+}
+
 .login-wrapper {
   background-image: url(assets/backgrounds/login-bg.jpg);
   background-position: center;

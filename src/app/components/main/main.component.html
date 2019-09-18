@@ -1,1 +1,38 @@
-<p>main works!</p>
+<div class="wrapper">
+    <mat-grid-list #grid cols="3" rowHeight="300px" gutterSize="10px">
+        <mat-grid-tile *ngFor="let sensor of sensors">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title class="primary-color">{{sensor.Name}}</mat-card-title>
+                    <mat-card-subtitle>{{sensor.LastSensorReading.CreatedDate}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <p class="sensor-description">{{sensor.ShortDescription}}</p>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <span fxFlex="50%" class="air-quality-name" 
+                            [ngStyle]="{'color': sensor.LastSensorReading.AirQuality.PrimaryColor}">
+                            {{sensor.LastSensorReading.AirQuality.Name}}
+                        </span>
+                        <span fxFlex="50%" class="ppm-value" fxFlex="50%"
+                            [ngStyle]="{'color': sensor.LastSensorReading.AirQuality.PrimaryColor}">
+                            {{sensor.LastSensorReading.GasPpm}} ppm
+                        </span>
+                    </div>
+
+                    <mat-progress-bar
+                        class="vertical-spacing"
+                        [ngStyle]="{'background-color': sensor.LastSensorReading.AirQuality.PrimaryColor}"
+                        [color]="sensor.LastSensorReading.AirQuality.PrimaryColor"
+                        [value]="sensor.LastSensorReading.GasPercentage * 100">
+                    </mat-progress-bar>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button>DETAILS</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
