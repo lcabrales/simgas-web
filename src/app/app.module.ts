@@ -29,6 +29,10 @@ import { RegisterService } from './components/register/register.service';
 import { ProfileService } from './components/profile/profile.service';
 import { SensorsService } from './components/main/sensors.service';
 
+/* Third-party */
+import { MomentModule } from 'ngx-moment';
+import 'moment/locale/es';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +52,8 @@ import { SensorsService } from './components/main/sensors.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MomentModule
   ],
   providers: [
     LoginService,

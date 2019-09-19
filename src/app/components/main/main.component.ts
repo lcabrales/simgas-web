@@ -68,4 +68,8 @@ export class MainComponent implements OnInit {
       this.dialogRef.close();
     }
   }
+
+  parseDate(dateString: string) {
+    return new Date(dateString);
+  }
 }
