@@ -12,8 +12,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$simgas-web-primary: mat-palette($mat-indigo);
-$simgas-web-accent: mat-palette($mat-pink, A200, A100, A400);
+$simgas-web-primary: mat-palette($mat-blue-gray, 600);
+$simgas-web-accent: mat-palette($mat-orange, 500);
 
 // The warn palette is optional (defaults to red).
 $simgas-web-warn: mat-palette($mat-red);
@@ -29,7 +29,7 @@ $simgas-web-theme: mat-light-theme($simgas-web-primary, $simgas-web-accent, $sim
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
 h1 {
-    color: #369;
+    color: #546e7a;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 250%;
   }
