@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { baseUrl } from 'src/app/common/constants';
 import { SensorListResponse } from 'src/app/models/sensor/sensor.list.response';
+import { DailyAverageResponse } from 'src/app/models/daily-average/daily-average.response';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,16 @@ export class SensorsService {
     let url = `${baseUrl}/Sensor`;
     
     return this.http.get<SensorListResponse>(url, this.httpOptions)    
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    );
+  }
+
+  getDailyAverageData(sensorId: string) {
+    let url = `${baseUrl}/SensorReading/Daily/SensorId/${sensorId}`;
+    
+    return this.http.get<DailyAverageResponse>(url, this.httpOptions)    
     .pipe(
       retry(1),
       catchError(this.errorHandler)

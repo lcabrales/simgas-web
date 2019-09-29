@@ -32,6 +32,8 @@ import { SensorsService } from './components/main/sensors.service';
 /* Third-party */
 import { MomentModule } from 'ngx-moment';
 import 'moment/locale/es';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import * as highstock from 'highcharts/modules/stock.src';
 
 @NgModule({
   declarations: [
@@ -53,13 +55,15 @@ import 'moment/locale/es';
     ReactiveFormsModule,
     HttpClientModule,
     FlexLayoutModule,
-    MomentModule
+    MomentModule,
+    ChartModule
   ],
   providers: [
     LoginService,
     RegisterService,
     ProfileService,
-    SensorsService
+    SensorsService,
+    { provide: HIGHCHARTS_MODULES, useFactory: () => [ highstock ] }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
