@@ -99,8 +99,7 @@ export class MainComponent implements OnInit {
 
     dailyAverageData.DailyAverages.forEach(element => {
       let timestamp = this.parseDate(element.CreatedDate).getTime();
-      let percentage = element.GasPercentage > 1 ? 1 : element.GasPercentage;
-      percentage *= 100;
+      let percentage = Math.min((element.GasPercentage), 1) * 100;
       let dataValue = [timestamp, percentage];
       dataList.push(dataValue);
     });
