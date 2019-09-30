@@ -1,96 +1,72 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login/login.service';
-import { Router } from '@angular/router';
-import { ProfileService } from '../profile/profile.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { ToolbarService } from '../toolbar/toolbar.service';
 import { Sensor } from 'src/app/models/sensor/sensor.model';
-import { SensorsService } from './sensors.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { SensorsService } from '../main/sensors.service';
+import { MatDialogRef, MatDialog } from '@angular/material';
 import { LoadingComponent } from '../loading/loading.component';
+import { SeriesOptionsType } from 'highcharts';
 import { StockChart } from 'angular-highcharts';
 import { DailyAverageData } from 'src/app/models/daily-average/daily-average.data';
-import { SeriesOptionsType } from 'highcharts';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: 'app-sensor-detail',
+  templateUrl: './sensor-detail.component.html',
+  styleUrls: ['./sensor-detail.component.scss']
 })
-export class MainComponent implements OnInit {
+export class SensorDetailComponent implements OnInit {
 
-  sensors: Sensor[];
   dialogRef: MatDialogRef<LoadingComponent, any>;
+  sensor: Sensor;
   chart: StockChart;
-  cols: number;
-
-  constructor(private toolbarService: ToolbarService,
-    private loginService: LoginService, 
+  
+  constructor(
+    private toolbarService: ToolbarService,
+    private route: ActivatedRoute,
     private router: Router,
-    private profileService: ProfileService,
     private sensorsService: SensorsService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.toolbarService.show();
-    this.updateLoggedInUser();
-    this.fetchSensors();
 
-    this.updateCols(window.innerWidth);
+    this.fetchSensorInfoWithRouteParam();
   }
 
-  updateLoggedInUser(){
-    let user = this.loginService.getUserLoggedIn();
-    this.profileService.get(user.UserId)
-    .subscribe(response => {
-      if (response.Result.Code != 200 || response.Data.length == 0) {
-        alert(response.Result.Message);
-        return;
-      }
-
-      this.loginService.setUserLoggedIn(response.Data[0]);
-    });
-  }
-
-  fetchSensors() {
+  fetchSensorInfoWithRouteParam() {
     this.showLoading();
-    this.sensorsService.getAll()
-    .subscribe(response => {
+    let observable = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+        this.sensorsService.getSensor(params.get('id')))
+    );
+
+    observable.subscribe(response => {
       if (response.Result.Code != 200 || response.Data.length == 0) {
-        this.hideLoading();
         alert(response.Result.Message);
         return;
       }
 
-      this.sensors = response.Data;
-      this.fetchDailyAverageData();
+      this.sensor = response.Data[0];
+      this.fetchDailyAverage()
     });
   }
 
-  fetchDailyAverageData() {
-    var count = this.sensors.length
-    var completed = 0;
-
+  fetchDailyAverage() {
     var series = new Array<SeriesOptionsType>();
 
-    this.sensors.forEach(sensor => {
-      this.sensorsService.getDailyAverageData(sensor.SensorId)
-        .subscribe(response => {
-          completed++;
+    this.sensorsService.getDailyAverageData(this.sensor.SensorId)
+    .subscribe(response => {
+      if (response.Result.Code != 200) {
+        alert(response.Result.Message);
+        return;
+      }
 
-          if (response.Result.Code != 200) {
-            alert(response.Result.Message);
-            return;
-          }
+      series.push(this.buildChartSeriesWith(response.Data))
 
-          series.push(this.buildChartSeriesWith(response.Data))
-
-          if (completed >= count) {
-            completed = 0;
-            count = 0;
-            this.hideLoading();
-            this.buildChartWith(series);
-          }
-        });
+      this.hideLoading();
+      this.buildChartWith(series);
     });
   }
 
@@ -141,14 +117,6 @@ export class MainComponent implements OnInit {
         }
       }]
     });
-  }
-
-  updateCols(windowWidth: number) {
-    this.cols = (windowWidth <= 500) ? 1 : 3;
-  }
-
-  onResize(event) {
-    this.updateCols(event.target.innerWidth);
   }
 
   showLoading() {

@@ -29,6 +29,16 @@ export class SensorsService {
     );
   }
 
+  getSensor(sensorId: string) {
+    let url = `${baseUrl}/Sensor?SensorId=${sensorId}`;
+    
+    return this.http.get<SensorListResponse>(url, this.httpOptions)    
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    );
+  }
+
   getDailyAverageData(sensorId: string) {
     let url = `${baseUrl}/SensorReading/Daily/SensorId/${sensorId}`;
     

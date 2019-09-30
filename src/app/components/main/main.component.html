@@ -1,5 +1,5 @@
-<div class="wrapper">
-    <mat-grid-list #grid cols="3" rowHeight="300px" gutterSize="10px">
+<div class="wrapper" fxLayout="column" fxLayoutGap="10px">
+    <mat-grid-list [cols]="cols" (window:resize)="onResize($event)" gutterSize="10px">
         <mat-grid-tile *ngFor="let sensor of sensors">
             <mat-card>
                 <mat-card-header>
@@ -32,14 +32,14 @@
                     </mat-progress-bar>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-button>VER DETALLES</button>
+                    <button mat-button [routerLink]="['/sensor', sensor.SensorId]">VER DETALLES</button>
                 </mat-card-actions>
             </mat-card>
         </mat-grid-tile>
     </mat-grid-list>
-    <div fxLayout="row">
+    <div fxLayout="row" *ngIf="chart">
         <mat-card fxFlex="100%" fxLayoutAlign="center">
-        <div fxFlex [chart]="chart"></div>
-    </mat-card>
+            <div fxFlex [chart]="chart"></div>
+        </mat-card>
     </div>
 </div>
