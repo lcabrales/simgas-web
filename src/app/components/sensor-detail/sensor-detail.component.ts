@@ -10,6 +10,7 @@ import { SeriesOptionsType } from 'highcharts';
 import { StockChart } from 'angular-highcharts';
 import { DailyAverageData } from 'src/app/models/daily-average/daily-average.data';
 import { AirQuality } from 'src/app/models/air-quality/air-quality.model';
+import { SensorReading } from 'src/app/models/sensor-reading/sensor-reading.model';
 
 @Component({
   selector: 'app-sensor-detail',
@@ -22,7 +23,9 @@ export class SensorDetailComponent implements OnInit {
   sensor: Sensor;
   chart: StockChart;
   airQualityValues: AirQuality[]
-  
+  displayedColumns: string[] = ['date', 'air-quality', 'sensor-reading', 'sensor-reading-bar'];
+  sensorReadings: SensorReading[];
+
   constructor(
     private toolbarService: ToolbarService,
     private route: ActivatedRoute,
@@ -53,13 +56,14 @@ export class SensorDetailComponent implements OnInit {
       this.sensor = response.Data[0];
       this.fetchAirQuality();
       this.fetchDailyAverage();
+      this.fetchSensorReadings();
     });
   }
 
   fetchAirQuality() {
     this.sensorsService.getAirQualityValues(this.sensor.Gas.GasId)
     .subscribe(response => {
-      if (response.Result.Code != 200 && response.Data.length == 0) {
+      if (response.Result.Code != 200 || response.Data.length == 0) {
         alert(response.Result.Message);
         return;
       }
@@ -131,6 +135,18 @@ export class SensorDetailComponent implements OnInit {
           text: 'Porcentaje Relativo'
         }
       }]
+    });
+  }
+
+  fetchSensorReadings() {
+    this.sensorsService.getSensorReadings(this.sensor.SensorId)
+    .subscribe(response => {
+      if (response.Result.Code != 200 || response.Data.length == 0) {
+        alert(response.Result.Message);
+        return;
+      }
+
+      this.sensorReadings = response.Data;
     });
   }
 

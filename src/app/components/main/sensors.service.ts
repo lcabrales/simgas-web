@@ -6,6 +6,7 @@ import { baseUrl } from 'src/app/common/constants';
 import { SensorListResponse } from 'src/app/models/sensor/sensor.list.response';
 import { DailyAverageResponse } from 'src/app/models/daily-average/daily-average.response';
 import { AirQualityResponse } from 'src/app/models/air-quality/air-quality.response';
+import { SensorReadingResponse } from 'src/app/models/sensor-reading/sensor-reading.response';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,16 @@ export class SensorsService {
     let url = `${baseUrl}/SensorReading/Daily/SensorId/${sensorId}`;
     
     return this.http.get<DailyAverageResponse>(url, this.httpOptions)    
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    );
+  }
+
+  getSensorReadings(sensorId: string) {
+    let url = `${baseUrl}/SensorReading/SensorId/${sensorId}`;
+    
+    return this.http.get<SensorReadingResponse>(url, this.httpOptions)    
     .pipe(
       retry(1),
       catchError(this.errorHandler)
