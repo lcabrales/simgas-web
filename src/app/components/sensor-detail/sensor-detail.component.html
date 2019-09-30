@@ -1,5 +1,5 @@
 <div class="wrapper" fxLayout="column" fxLayoutGap="10px">
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="stretch" fxLayoutGap="10px">
         <div fxLayout="column" fxLayoutAlign="stretch" fxFlex="30%" fxLayoutGap="10px">
             <mat-card *ngIf='sensor' fxFlex="50%">
                 <mat-card-header>
@@ -11,18 +11,27 @@
                     </div>
                 </mat-card-content>
             </mat-card>
-            <mat-card *ngIf='sensor' fxFlex="50%" fxLayoutAlign="stretch">
+            <mat-card *ngIf='sensor' fxFlex="50%">
                 <mat-card-header>
                     <mat-card-title class="primary-color">Calidad de Aire</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <div fxLayout="row" fxLayoutAlign="space-between">
-                        <p class="sensor-description">{{sensor.FullDescription}}</p>
-                    </div>
+                    <mat-list fxFlex>
+                        <mat-list-item *ngFor="let aq of airQualityValues">
+                            <div fxLayout="row" fxLayoutAlign="space-between" fxFlexFill fxLayoutGap="10px">
+                                <div fxLayout="row" fxFlex="30%" fxLayoutAlign="center">
+                                    <span class="aq-value text-center" fxFlex="33%">{{aq.MinValue}}</span>
+                                    <span class="text-center" fxFlex="33%">-</span>
+                                    <span class="aq-value text-center" fxFlex="33%">{{aq.MaxValue ? aq.MaxValue : "∞"}}</span>
+                                </div>
+                                <span class="aq-name text-center" [style.color]="aq.PrimaryColor" fxFlex="70%">{{aq.Name}}</span>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
                 </mat-card-content>
             </mat-card>
         </div>
-        <mat-card fxFlex fxLayoutAlign="center" fxFlexFill *ngIf="chart">
+        <mat-card fxFlex fxLayoutAlign="center" *ngIf="chart">
             <div fxFlex [chart]="chart"></div>
         </mat-card>
     </div>

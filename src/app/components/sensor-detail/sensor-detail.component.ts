@@ -9,6 +9,7 @@ import { LoadingComponent } from '../loading/loading.component';
 import { SeriesOptionsType } from 'highcharts';
 import { StockChart } from 'angular-highcharts';
 import { DailyAverageData } from 'src/app/models/daily-average/daily-average.data';
+import { AirQuality } from 'src/app/models/air-quality/air-quality.model';
 
 @Component({
   selector: 'app-sensor-detail',
@@ -20,6 +21,7 @@ export class SensorDetailComponent implements OnInit {
   dialogRef: MatDialogRef<LoadingComponent, any>;
   sensor: Sensor;
   chart: StockChart;
+  airQualityValues: AirQuality[]
   
   constructor(
     private toolbarService: ToolbarService,
@@ -49,7 +51,20 @@ export class SensorDetailComponent implements OnInit {
       }
 
       this.sensor = response.Data[0];
-      this.fetchDailyAverage()
+      this.fetchAirQuality();
+      this.fetchDailyAverage();
+    });
+  }
+
+  fetchAirQuality() {
+    this.sensorsService.getAirQualityValues(this.sensor.Gas.GasId)
+    .subscribe(response => {
+      if (response.Result.Code != 200 && response.Data.length == 0) {
+        alert(response.Result.Message);
+        return;
+      }
+
+      this.airQualityValues = response.Data;
     });
   }
 

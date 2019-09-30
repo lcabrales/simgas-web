@@ -5,6 +5,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { baseUrl } from 'src/app/common/constants';
 import { SensorListResponse } from 'src/app/models/sensor/sensor.list.response';
 import { DailyAverageResponse } from 'src/app/models/daily-average/daily-average.response';
+import { AirQualityResponse } from 'src/app/models/air-quality/air-quality.response';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,16 @@ export class SensorsService {
     let url = `${baseUrl}/SensorReading/Daily/SensorId/${sensorId}`;
     
     return this.http.get<DailyAverageResponse>(url, this.httpOptions)    
+    .pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    );
+  }
+  
+  getAirQualityValues(gasId: string) {
+    let url = `${baseUrl}/AirQuality?GasId=${gasId}`;
+    
+    return this.http.get<AirQualityResponse>(url, this.httpOptions)    
     .pipe(
       retry(1),
       catchError(this.errorHandler)

@@ -15,18 +15,17 @@
 
                     <div fxLayout="row" fxLayoutAlign="space-between">
                         <span fxFlex="50%" class="air-quality-name" 
-                            [ngStyle]="{'color': sensor.LastSensorReading.AirQuality.PrimaryColor}">
+                            [style.color]="sensor.LastSensorReading.AirQuality.PrimaryColor">
                             {{sensor.LastSensorReading.AirQuality.Name}}
                         </span>
-                        <span fxFlex="50%" class="ppm-value" fxFlex="50%"
-                            [ngStyle]="{'color': sensor.LastSensorReading.AirQuality.PrimaryColor}">
+                        <span fxFlex="50%" class="ppm-value"
+                            [style.color]="sensor.LastSensorReading.AirQuality.PrimaryColor">
                             {{sensor.LastSensorReading.GasPpm}} ppm
                         </span>
                     </div>
 
                     <mat-progress-bar
                         class="vertical-spacing"
-                        [ngStyle]="{'background-color': sensor.LastSensorReading.AirQuality.PrimaryColor}"
                         [color]="sensor.LastSensorReading.AirQuality.PrimaryColor"
                         [value]="sensor.LastSensorReading.GasPercentage * 100">
                     </mat-progress-bar>
@@ -38,7 +37,7 @@
         </mat-grid-tile>
     </mat-grid-list>
     <div fxLayout="row" *ngIf="chart">
-        <mat-card fxFlex="100%" fxLayoutAlign="center">
+        <mat-card fxFlexFill fxLayoutAlign="center">
             <div fxFlex [chart]="chart"></div>
         </mat-card>
     </div>
