@@ -19,6 +19,7 @@ import { SensorReading } from 'src/app/models/sensor-reading/sensor-reading.mode
 })
 export class SensorDetailComponent implements OnInit {
 
+  math = Math;
   dialogRef: MatDialogRef<LoadingComponent, any>;
   sensor: Sensor;
   chart: StockChart;
@@ -94,8 +95,7 @@ export class SensorDetailComponent implements OnInit {
 
     dailyAverageData.DailyAverages.forEach(element => {
       let timestamp = this.parseDate(element.CreatedDate).getTime();
-      let percentage = element.GasPercentage > 1 ? 1 : element.GasPercentage;
-      percentage *= 100;
+      let percentage = Math.min((element.GasPercentage), 1) * 100;
       let dataValue = [timestamp, percentage];
       dataList.push(dataValue);
     });
@@ -127,7 +127,7 @@ export class SensorDetailComponent implements OnInit {
         enabled: true 
       },
       title: {
-        text: 'Promedio Diario de Lecturas'
+        text: null
       },
       series: series,
       yAxis: [{

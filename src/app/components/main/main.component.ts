@@ -132,7 +132,7 @@ export class MainComponent implements OnInit {
         enabled: true 
       },
       title: {
-        text: 'Promedio Diario de Lecturas'
+        text: null
       },
       series: series,
       yAxis: [{

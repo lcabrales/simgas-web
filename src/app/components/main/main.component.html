@@ -37,8 +37,13 @@
         </mat-grid-tile>
     </mat-grid-list>
     <div fxLayout="row" *ngIf="chart">
-        <mat-card fxFlexFill fxLayoutAlign="center">
-            <div fxFlex [chart]="chart"></div>
+        <mat-card fxFlexFill>
+            <mat-card-header>
+                <mat-card-title class="primary-color">Promedio Diario de Lecturas</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div fxFlex [chart]="chart"></div>
+            </mat-card-content>
         </mat-card>
     </div>
 </div>
