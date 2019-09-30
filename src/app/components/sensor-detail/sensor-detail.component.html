@@ -1,6 +1,6 @@
 <div class="wrapper" fxLayout="column" fxLayoutGap="10px">
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="stretch" fxLayoutGap="10px">
-        <div fxLayout="column" fxLayoutAlign="stretch" fxFlex="30%" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="stretch" fxLayoutGap="10px">
+        <div fxLayout="column" fxLayoutAlign="stretch" fxFlex="35%" fxLayoutGap="10px">
             <mat-card *ngIf='sensor' fxFlex="50%">
                 <mat-card-header>
                     <mat-card-title class="primary-color">{{sensor.Name}}</mat-card-title>
@@ -31,7 +31,7 @@
                 </mat-card-content>
             </mat-card>
         </div>
-        <mat-card fxFlex fxLayoutAlign="center" *ngIf="chart">
+        <mat-card fxFlex="65%" fxFlex.lt-md="100%" fxLayoutAlign="center" *ngIf="chart">
             <div fxFlex [chart]="chart"></div>
         </mat-card>
     </div>
