@@ -5,7 +5,7 @@
                 <mat-card-header>
                     <mat-card-title class="primary-color">{{sensor.Name}}</mat-card-title>
                     <mat-card-subtitle>
-                        {{parseDate(sensor.LastSensorReading.CreatedDate) | amLocal | amLocale: 'es' | amTimeAgo}}
+                        {{parseDate(sensor.LastSensorReading.CreatedDate) | amLocal | amTimeAgo}}
                     </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
