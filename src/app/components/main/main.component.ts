@@ -140,7 +140,7 @@ export class MainComponent implements OnInit {
   }
 
   updateCols(windowWidth: number) {
-    this.cols = (windowWidth <= 500) ? 1 : 3;
+    this.cols = (windowWidth < 960) ? 1 : 3;
   }
 
   onResize(event) {
