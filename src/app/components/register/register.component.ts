@@ -73,6 +73,12 @@ export class RegisterComponent implements OnInit {
     this.registerService.register(request)
     .subscribe(response => {
         this.hideLoading();
+
+        if (response.Result.Code != 200 || !response.Data) {
+          alert(response.Result.Message);
+          return;
+        }
+
         this.loginService.setUserLoggedIn(response.Data);
         this.goToMain();
     });
