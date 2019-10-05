@@ -17,7 +17,7 @@
 
 <!-- Side Nav (mobile) -->
 <mat-sidenav-container>
-    <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+    <mat-sidenav color="primary" #sidenav (click)="sidenav.toggle()" fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
         <div fxLayout="column">
             <a mat-button routerLink="profile" routerLinkActive="active">Mi Perfil</a>
             <a mat-button routerLink="main" routerLinkActive="active">Sensores</a>
