@@ -3,13 +3,12 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Sensor } from 'src/app/models/sensor/sensor.model';
 import { SensorsService } from '../main/sensors.service';
-import { MatDialogRef, MatDialog } from '@angular/material';
-import { LoadingComponent } from '../loading/loading.component';
 import { SeriesOptionsType } from 'highcharts';
 import { StockChart } from 'angular-highcharts';
 import { DailyAverageData } from 'src/app/models/daily-average/daily-average.data';
 import { AirQuality } from 'src/app/models/air-quality/air-quality.model';
 import { SensorReading } from 'src/app/models/sensor-reading/sensor-reading.model';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-sensor-detail',
@@ -19,7 +18,6 @@ import { SensorReading } from 'src/app/models/sensor-reading/sensor-reading.mode
 export class SensorDetailComponent implements OnInit {
 
   math = Math;
-  dialogRef: MatDialogRef<LoadingComponent, any>;
   sensor: Sensor;
   chart: StockChart;
   airQualityValues: AirQuality[]
@@ -27,10 +25,10 @@ export class SensorDetailComponent implements OnInit {
   sensorReadings: SensorReading[];
 
   constructor(
+    private appComponent: AppComponent,
     private route: ActivatedRoute,
     private router: Router,
-    private sensorsService: SensorsService,
-    private dialog: MatDialog
+    private sensorsService: SensorsService
   ) { }
 
   ngOnInit() {
@@ -38,7 +36,7 @@ export class SensorDetailComponent implements OnInit {
   }
 
   fetchSensorInfoWithRouteParam() {
-    this.showLoading();
+    this.appComponent.showLoading();
     let observable = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
         this.sensorsService.getSensor(params.get('id')))
@@ -46,7 +44,7 @@ export class SensorDetailComponent implements OnInit {
 
     observable.subscribe(response => {
       if (response.Result.Code != 200 || response.Data.length == 0) {
-        alert(response.Result.Message);
+        this.appComponent.showAlert(response.Result.Message);
         return;
       }
 
@@ -61,7 +59,7 @@ export class SensorDetailComponent implements OnInit {
     this.sensorsService.getAirQualityValues(this.sensor.Gas.GasId)
     .subscribe(response => {
       if (response.Result.Code != 200 || response.Data.length == 0) {
-        alert(response.Result.Message);
+        this.appComponent.showAlert(response.Result.Message);
         return;
       }
 
@@ -75,13 +73,13 @@ export class SensorDetailComponent implements OnInit {
     this.sensorsService.getDailyAverageData(this.sensor.SensorId)
     .subscribe(response => {
       if (response.Result.Code != 200) {
-        alert(response.Result.Message);
+        this.appComponent.showAlert(response.Result.Message);
         return;
       }
 
       series.push(this.buildChartSeriesWith(response.Data))
 
-      this.hideLoading();
+      this.appComponent.hideLoading();
       this.buildChartWith(series);
     });
   }
@@ -138,22 +136,12 @@ export class SensorDetailComponent implements OnInit {
     this.sensorsService.getSensorReadings(this.sensor.SensorId)
     .subscribe(response => {
       if (response.Result.Code != 200 || response.Data.length == 0) {
-        alert(response.Result.Message);
+        this.appComponent.showAlert(response.Result.Message);
         return;
       }
 
       this.sensorReadings = response.Data;
     });
-  }
-
-  showLoading() {
-    this.dialogRef = this.dialog.open(LoadingComponent);
-  }
-
-  hideLoading() {
-    if (this.dialogRef) {
-      this.dialogRef.close();
-    }
   }
 
   parseDate(dateString: string) {

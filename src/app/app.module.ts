@@ -22,6 +22,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { MainComponent } from './components/main/main.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SensorDetailComponent } from './components/sensor-detail/sensor-detail.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 /* Services */
 import { LoginService } from './components/login/login.service';
@@ -44,6 +45,7 @@ import * as highstock from 'highcharts/modules/stock.src';
     MainComponent,
     ProfileComponent,
     SensorDetailComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +69,6 @@ import * as highstock from 'highcharts/modules/stock.src';
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [LoadingComponent]
+  entryComponents: [LoadingComponent, AlertComponent]
 })
 export class AppModule { }

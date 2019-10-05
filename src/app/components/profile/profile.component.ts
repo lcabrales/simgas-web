@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { LoadingComponent } from '../loading/loading.component';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
 import { ProfileService } from './profile.service';
 import { ProfileRequest } from 'src/app/models/profile/profile.request';
 import { User } from 'src/app/models/user/user.model';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-profile',
@@ -18,13 +17,13 @@ export class ProfileComponent implements OnInit {
   user: User;
   profileForm: FormGroup;
   requiredMessage: string = "Este campo no debe quedar vacío.";
-  dialogRef: MatDialogRef<LoadingComponent, any>;
 
-  constructor(private formBuilder: FormBuilder,
-      private profileService: ProfileService,
-      private dialog: MatDialog,
-      private loginService: LoginService,
-      private router: Router) { }
+  constructor(
+    private appComponent: AppComponent,
+    private formBuilder: FormBuilder,
+    private profileService: ProfileService,
+    private loginService: LoginService,
+    private router: Router) { }
 
   ngOnInit() {
     this.user = this.loginService.getUserLoggedIn();
@@ -59,14 +58,14 @@ export class ProfileComponent implements OnInit {
   }
 
   performUpdate(request: ProfileRequest) {
-    this.showLoading();
+    this.appComponent.showLoading();
 
     this.profileService.update(request)
     .subscribe(response => {
-      this.hideLoading();
+      this.appComponent.hideLoading();
       
       if (response.Result.Code != 200) {
-        alert(response.Result.Message);
+        this.appComponent.showAlert(response.Result.Message);
         return;
       }
       
@@ -76,15 +75,5 @@ export class ProfileComponent implements OnInit {
 
   goToMain() {
     this.router.navigate(['/main']);
-  }
-
-  showLoading() {
-    this.dialogRef = this.dialog.open(LoadingComponent);
-  }
-
-  hideLoading() {
-    if (this.dialogRef) {
-      this.dialogRef.close();
-    }
   }
 }

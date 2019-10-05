@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { ProfileService } from '../profile/profile.service';
 import { Sensor } from 'src/app/models/sensor/sensor.model';
 import { SensorsService } from './sensors.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { LoadingComponent } from '../loading/loading.component';
 import { StockChart } from 'angular-highcharts';
 import { DailyAverageData } from 'src/app/models/daily-average/daily-average.data';
 import { SeriesOptionsType } from 'highcharts';
@@ -19,16 +17,15 @@ import { AppComponent } from 'src/app/app.component';
 export class MainComponent implements OnInit {
 
   sensors: Sensor[];
-  dialogRef: MatDialogRef<LoadingComponent, any>;
   chart: StockChart;
   cols: number;
 
-  constructor(private appComponent: AppComponent,
+  constructor(
+    private appComponent: AppComponent,
     private loginService: LoginService, 
     private router: Router,
     private profileService: ProfileService,
-    private sensorsService: SensorsService,
-    private dialog: MatDialog) { }
+    private sensorsService: SensorsService) { }
 
   ngOnInit() {
     this.appComponent.showToolbar();
@@ -43,7 +40,7 @@ export class MainComponent implements OnInit {
     this.profileService.get(user.UserId)
     .subscribe(response => {
       if (response.Result.Code != 200 || response.Data.length == 0) {
-        alert(response.Result.Message);
+        this.appComponent.showAlert(response.Result.Message);
         return;
       }
 
@@ -52,11 +49,11 @@ export class MainComponent implements OnInit {
   }
 
   fetchSensors() {
-    this.showLoading();
+    this.appComponent.showLoading();
     this.sensorsService.getAll()
     .subscribe(response => {
       if (response.Result.Code != 200 || response.Data.length == 0) {
-        this.hideLoading();
+        this.appComponent.hideLoading();
         alert(response.Result.Message);
         return;
       }
@@ -78,7 +75,7 @@ export class MainComponent implements OnInit {
           completed++;
 
           if (response.Result.Code != 200) {
-            alert(response.Result.Message);
+            this.appComponent.showAlert(response.Result.Message);
             return;
           }
 
@@ -87,7 +84,7 @@ export class MainComponent implements OnInit {
           if (completed >= count) {
             completed = 0;
             count = 0;
-            this.hideLoading();
+            this.appComponent.hideLoading();
             this.buildChartWith(series);
           }
         });
@@ -148,16 +145,6 @@ export class MainComponent implements OnInit {
 
   onResize(event) {
     this.updateCols(event.target.innerWidth);
-  }
-
-  showLoading() {
-    this.dialogRef = this.dialog.open(LoadingComponent);
-  }
-
-  hideLoading() {
-    if (this.dialogRef) {
-      this.dialogRef.close();
-    }
   }
 
   parseDate(dateString: string) {

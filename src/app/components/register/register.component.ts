@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/common/mustmatch.validator';
 import { RegisterService } from './register.service';
 import { RegisterRequest } from 'src/app/models/register/register.request';
-import { MatDialog, MatDialogRef } from '@angular/material';
 import { LoadingComponent } from '../loading/loading.component';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
@@ -19,12 +18,10 @@ export class RegisterComponent implements OnInit {
   private DEFAULT_ROLE_ID = "2b4c45c1-7326-4369-9c65-dacb2ebe5c91";
   registerForm: FormGroup;
   requiredMessage: string = "Este campo no debe quedar vacío.";
-  dialogRef: MatDialogRef<LoadingComponent, any>;
 
   constructor(private appComponent: AppComponent,
       private formBuilder: FormBuilder,
       private registerService: RegisterService,
-      private dialog: MatDialog,
       private loginService: LoginService,
       private router: Router) { }
 
@@ -68,14 +65,14 @@ export class RegisterComponent implements OnInit {
   }
 
   performRegister(request: RegisterRequest) {
-    this.showLoading();
+    this.appComponent.showLoading();
 
     this.registerService.register(request)
     .subscribe(response => {
-        this.hideLoading();
+        this.appComponent.hideLoading();
 
         if (response.Result.Code != 200 || !response.Data) {
-          alert(response.Result.Message);
+          this.appComponent.showAlert(response.Result.Message);
           return;
         }
 
@@ -86,15 +83,5 @@ export class RegisterComponent implements OnInit {
 
   goToMain() {
     this.router.navigate(['/main']);
-  }
-
-  showLoading() {
-    this.dialogRef = this.dialog.open(LoadingComponent);
-  }
-
-  hideLoading() {
-    if (this.dialogRef) {
-      this.dialogRef.close();
-    }
   }
 }

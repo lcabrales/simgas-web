@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
 import { LoadingComponent } from '../loading/loading.component';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
@@ -14,11 +13,9 @@ export class LoginComponent implements OnInit {
 
   username = null;
   password = null;
-  dialogRef: MatDialogRef<LoadingComponent, any>;
 
   constructor(private appComponent: AppComponent, 
-    private loginService: LoginService, 
-    public dialog: MatDialog,
+    private loginService: LoginService,
     private router: Router) { }
 
   ngOnInit() {
@@ -36,15 +33,15 @@ export class LoginComponent implements OnInit {
   }
 
   performLogin() {
-    this.showLoading();
+    this.appComponent.showLoading();
 
     this.loginService.login(this.username, this.password)
     .subscribe(response => {
-        this.hideLoading();
+        this.appComponent.hideLoading();
         this.clearFields();
 
         if (response.Result.Code != 200) {
-          alert(response.Result.Message);
+          this.appComponent.showAlert(response.Result.Message);
           return;
         }
 
@@ -55,15 +52,5 @@ export class LoginComponent implements OnInit {
 
   goToMain() {
     this.router.navigate(['/main']);
-  }
-
-  showLoading() {
-    this.dialogRef = this.dialog.open(LoadingComponent);
-  }
-
-  hideLoading() {
-    if (this.dialogRef) {
-      this.dialogRef.close();
-    }
   }
 }
