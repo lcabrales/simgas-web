@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { ToolbarService } from '../toolbar/toolbar.service';
 import { Sensor } from 'src/app/models/sensor/sensor.model';
 import { SensorsService } from '../main/sensors.service';
 import { MatDialogRef, MatDialog } from '@angular/material';
@@ -28,7 +27,6 @@ export class SensorDetailComponent implements OnInit {
   sensorReadings: SensorReading[];
 
   constructor(
-    private toolbarService: ToolbarService,
     private route: ActivatedRoute,
     private router: Router,
     private sensorsService: SensorsService,
@@ -36,8 +34,6 @@ export class SensorDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.toolbarService.show();
-
     this.fetchSensorInfoWithRouteParam();
   }
 

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolbarService } from '../toolbar/toolbar.service';
 import { LoginService } from './login.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { LoadingComponent } from '../loading/loading.component';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   password = null;
   dialogRef: MatDialogRef<LoadingComponent, any>;
 
-  constructor(public toolbarService: ToolbarService, 
+  constructor(private appComponent: AppComponent, 
     private loginService: LoginService, 
     public dialog: MatDialog,
     private router: Router) { }
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     
-    this.toolbarService.hide();
+    this.appComponent.hideToolbar();
   }
 
   clearFields() {

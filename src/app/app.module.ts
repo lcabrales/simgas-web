@@ -17,7 +17,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 
 /* Components */
 import { LoginComponent } from './components/login/login.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MainComponent } from './components/main/main.component';
@@ -40,7 +39,6 @@ import * as highstock from 'highcharts/modules/stock.src';
   declarations: [
     AppComponent,
     LoginComponent,
-    ToolbarComponent,
     LoadingComponent,
     RegisterComponent,
     MainComponent,

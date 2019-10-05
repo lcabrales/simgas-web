@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolbarService } from '../toolbar/toolbar.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RegisterRequest } from 'src/app/models/register/register.request';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { LoadingComponent } from '../loading/loading.component';
 import { LoginService } from '../login/login.service';
@@ -22,16 +20,13 @@ export class ProfileComponent implements OnInit {
   requiredMessage: string = "Este campo no debe quedar vacío.";
   dialogRef: MatDialogRef<LoadingComponent, any>;
 
-  constructor(private toolbarService: ToolbarService,
-      private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
       private profileService: ProfileService,
       private dialog: MatDialog,
       private loginService: LoginService,
       private router: Router) { }
 
   ngOnInit() {
-    this.toolbarService.show();
-
     this.user = this.loginService.getUserLoggedIn();
     this.setupForm()
   }

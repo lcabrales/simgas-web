@@ -1,4 +1,32 @@
-<!-- Toolbar -->
-<app-toolbar></app-toolbar>
-  
-<router-outlet></router-outlet>
+<!-- Toolbar (desktop) -->
+<mat-toolbar color="primary" [style.display]="isToolbarVisible ? 'flex' : 'none'">
+    <div fxHide.gt-sm="true">
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+    <a mat-button class="site-name" routerLink="/">
+        <h1>SIMGAS-IPTV</h1>
+    </a>
+    <span class="nav-tool-items" fxHide.lt-md="true">
+        <a mat-button routerLink="profile" routerLinkActive="active">Mi Perfil</a>
+        <a mat-button routerLink="main" routerLinkActive="active">Sensores</a>
+        <a mat-button (click)="performLogout()">Cerrar Sesión</a>
+    </span>
+</mat-toolbar>
+
+<!-- Side Nav (mobile) -->
+<mat-sidenav-container>
+    <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+        <div fxLayout="column">
+            <a mat-button routerLink="profile" routerLinkActive="active">Mi Perfil</a>
+            <a mat-button routerLink="main" routerLinkActive="active">Sensores</a>
+            <a mat-button (click)="performLogout()">Cerrar Sesión</a>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+

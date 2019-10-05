@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolbarService } from '../toolbar/toolbar.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/common/mustmatch.validator';
 import { RegisterService } from './register.service';
@@ -8,6 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { LoadingComponent } from '../loading/loading.component';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   requiredMessage: string = "Este campo no debe quedar vacío.";
   dialogRef: MatDialogRef<LoadingComponent, any>;
 
-  constructor(private toolbarService: ToolbarService,
+  constructor(private appComponent: AppComponent,
       private formBuilder: FormBuilder,
       private registerService: RegisterService,
       private dialog: MatDialog,
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
       private router: Router) { }
 
   ngOnInit() {
-    this.toolbarService.hide();
+    this.appComponent.hideToolbar();
 
     this.setupForm()
   }

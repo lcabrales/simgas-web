@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
 import { ProfileService } from '../profile/profile.service';
-import { ToolbarService } from '../toolbar/toolbar.service';
 import { Sensor } from 'src/app/models/sensor/sensor.model';
 import { SensorsService } from './sensors.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
@@ -10,6 +9,7 @@ import { LoadingComponent } from '../loading/loading.component';
 import { StockChart } from 'angular-highcharts';
 import { DailyAverageData } from 'src/app/models/daily-average/daily-average.data';
 import { SeriesOptionsType } from 'highcharts';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-main',
@@ -23,7 +23,7 @@ export class MainComponent implements OnInit {
   chart: StockChart;
   cols: number;
 
-  constructor(private toolbarService: ToolbarService,
+  constructor(private appComponent: AppComponent,
     private loginService: LoginService, 
     private router: Router,
     private profileService: ProfileService,
@@ -31,7 +31,7 @@ export class MainComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.toolbarService.show();
+    this.appComponent.showToolbar();
     this.updateLoggedInUser();
     this.fetchSensors();
 
