@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { MainComponent } from './components/main/main.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SensorDetailComponent } from './components/sensor-detail/sensor-detail.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'main', redirectTo: 'sensors' },
   { path: 'sensors', component: MainComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'sensor/:id', component: SensorDetailComponent }
+  { path: 'sensor/:id', component: SensorDetailComponent },
+  { path: 'about-us', component: AboutUsComponent }
 ];
 
 @NgModule({

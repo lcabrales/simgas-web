@@ -23,6 +23,7 @@ import { MainComponent } from './components/main/main.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SensorDetailComponent } from './components/sensor-detail/sensor-detail.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 /* Services */
 import { LoginService } from './components/login/login.service';
@@ -46,6 +47,7 @@ import * as highstock from 'highcharts/modules/stock.src';
     ProfileComponent,
     SensorDetailComponent,
     AlertComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,

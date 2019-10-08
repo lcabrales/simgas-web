@@ -1,0 +1,26 @@
+.wrapper {
+    padding: 20px;
+    height: 100%;
+}
+
+mat-card {
+    width: 100%;
+}
+
+.text-wall {
+    text-align: justify;
+}
+
+.person-avatar {
+    height: 120px;
+    width: 120px;
+    border-radius: 60px;
+    align-self: center;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+}
+
+.person-name {
+    text-align: center;
+    font-weight: bold;
+}
