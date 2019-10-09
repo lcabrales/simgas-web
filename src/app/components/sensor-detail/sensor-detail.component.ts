@@ -133,14 +133,18 @@ export class SensorDetailComponent implements OnInit {
   }
 
   fetchSensorReadings() {
-    this.sensorsService.getSensorReadings(this.sensor.SensorId)
+    var date = new Date();
+    date.setDate(date.getDate() - 7);
+    this.sensorsService.getSensorReadings(this.sensor.SensorId, date.toISOString())
     .subscribe(response => {
-      if (response.Result.Code != 200 || response.Data.length == 0) {
+      if (response.Result.Code != 200) {
         this.appComponent.showAlert(response.Result.Message);
         return;
       }
 
-      this.sensorReadings = response.Data;
+      if (response.Data.length > 0){
+        this.sensorReadings = response.Data;
+      }
     });
   }
 

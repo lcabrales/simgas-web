@@ -51,8 +51,8 @@ export class SensorsService {
     );
   }
 
-  getSensorReadings(sensorId: string) {
-    let url = `${baseUrl}/SensorReading/SensorId/${sensorId}`;
+  getSensorReadings(sensorId: string, startDate: string) {
+    let url = `${baseUrl}/SensorReading/SensorId/${sensorId}?StartDate=${startDate}`;
     
     return this.http.get<SensorReadingResponse>(url, this.httpOptions)    
     .pipe(

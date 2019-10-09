@@ -75,6 +75,9 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
+                <div *ngIf="!sensorReadings" fxFlex>
+                    <span fxFlex class="text-center">No data available</span>
+                </div>
             </mat-card-content>
         </mat-card>
     </div>
