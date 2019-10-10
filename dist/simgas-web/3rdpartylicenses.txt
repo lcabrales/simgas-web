@@ -128,9 +128,13 @@ THE SOFTWARE.
 
 @angular/material/list
 
+@angular/material/paginator
+
 @angular/material/progress-bar
 
 @angular/material/progress-spinner
+
+@angular/material/select
 
 @angular/material/sidenav
 
