@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Sensor } from 'src/app/models/sensor/sensor.model';
@@ -9,6 +9,8 @@ import { DailyAverageData } from 'src/app/models/daily-average/daily-average.dat
 import { AirQuality } from 'src/app/models/air-quality/air-quality.model';
 import { SensorReading } from 'src/app/models/sensor-reading/sensor-reading.model';
 import { AppComponent } from 'src/app/app.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-sensor-detail',
@@ -21,8 +23,10 @@ export class SensorDetailComponent implements OnInit {
   sensor: Sensor;
   chart: StockChart;
   airQualityValues: AirQuality[]
+  
   displayedColumns: string[] = ['date', 'air-quality', 'sensor-reading', 'sensor-reading-bar'];
-  sensorReadings: SensorReading[];
+  dataSource: MatTableDataSource<SensorReading> = new MatTableDataSource<SensorReading>();
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private appComponent: AppComponent,
@@ -32,6 +36,7 @@ export class SensorDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.dataSource.paginator = this.paginator;
     this.fetchSensorInfoWithRouteParam();
   }
 
@@ -143,7 +148,7 @@ export class SensorDetailComponent implements OnInit {
       }
 
       if (response.Data.length > 0){
-        this.sensorReadings = response.Data;
+        this.dataSource.data = response.Data;
       }
     });
   }
