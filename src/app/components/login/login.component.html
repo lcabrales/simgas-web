@@ -1,23 +1,21 @@
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title class="primary-color">Iniciar Sesión</mat-card-title>
+        </mat-card-header>
 
-    <mat-card class="box">
-      <mat-card-header>
-        <mat-card-title>Iniciar Sesión</mat-card-title>
-      </mat-card-header>
-  
-      <form class="form">
-        <mat-card-content>
-          <mat-form-field class="full-width">
-            <input [(ngModel)]="username" name="username" matInput placeholder="Usuario">
-          </mat-form-field>
-  
-          <mat-form-field class="full-width">
-            <input [(ngModel)]="password" name="password" matInput placeholder="Contraseña" type='password'>
-          </mat-form-field>
-        </mat-card-content>
-        <button mat-raised-button color="primary" class="btn-block" (click)="performLogin()">Entrar</button>
-        <button mat-stroked-button color="primary" class="btn-block-margin" routerLink="/register">Crear Nueva Cuenta</button>
-      </form>
+        <form class="form">
+            <mat-card-content>
+                <mat-form-field class="full-width">
+                <input [(ngModel)]="username" name="username" matInput placeholder="Usuario">
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                <input [(ngModel)]="password" name="password" matInput placeholder="Contraseña" type='password'>
+                </mat-form-field>
+            </mat-card-content>
+            <button mat-raised-button color="primary" class="btn-block" (click)="performLogin()">Entrar</button>
+            <button mat-stroked-button color="primary" class="btn-block-margin" routerLink="/register">Crear Nueva Cuenta</button>
+        </form>
     </mat-card>
-  
-  </div>
+</div>

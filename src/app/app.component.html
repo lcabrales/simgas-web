@@ -1,5 +1,5 @@
 <!-- Toolbar (desktop) -->
-<mat-toolbar color="primary" [style.display]="isToolbarVisible ? 'flex' : 'none'">
+<mat-toolbar color="primary">
     <div fxHide.gt-sm="true">
         <button mat-icon-button (click)="sidenav.toggle()">
             <mat-icon>menu</mat-icon>
@@ -9,22 +9,39 @@
         <h1>SIMGAS-IPTV</h1>
     </a>
     <span class="nav-tool-items" fxHide.lt-md="true">
-        <a mat-button routerLink="profile" routerLinkActive="active">Mi Perfil</a>
-        <a mat-button routerLink="main" routerLinkActive="active">Sensores</a>
-        <a mat-button routerLink="about-us" routerLinkActive="active">Acerca de Nosotros</a>
-        <a mat-button (click)="performLogout()">Cerrar Sesión</a>
-    </span>
-</mat-toolbar>
-
-<!-- Side Nav (mobile) -->
-<mat-sidenav-container [style.display]="isToolbarVisible ? 'block' : 'inherit'">
-    <mat-sidenav color="primary" #sidenav (click)="sidenav.toggle()" fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
-        <div fxLayout="column">
+        <div [style.display]="isToolbarVisible ? 'flex' : 'none'">
             <a mat-button routerLink="profile" routerLinkActive="active">Mi Perfil</a>
             <a mat-button routerLink="main" routerLinkActive="active">Sensores</a>
             <a mat-button routerLink="about-us" routerLinkActive="active">Acerca de Nosotros</a>
             <a mat-button (click)="performLogout()">Cerrar Sesión</a>
         </div>
+        <div [style.display]="isToolbarVisible ? 'none' : 'flex'">
+            <a mat-button routerLink="login" routerLinkActive="active">Iniciar Sesión</a>
+            <a mat-button routerLink="register" routerLinkActive="active">Crear Nueva Cuenta</a>
+        </div>
+    </span>
+</mat-toolbar>
+
+<!-- Side Nav (mobile) -->
+<mat-sidenav-container>
+    <mat-sidenav color="primary" #sidenav (click)="sidenav.toggle()" fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+        <a mat-button routerLink="login" routerLinkActive="active"
+            [style.display]="isToolbarVisible ? 'none' : 'flex'">Iniciar Sesión</a>
+
+        <a mat-button routerLink="register" routerLinkActive="active"
+            [style.display]="isToolbarVisible ? 'none' : 'flex'">Crear Nueva Cuenta</a>
+
+        <a mat-button routerLink="profile" routerLinkActive="active"
+            [style.display]="isToolbarVisible ? 'flex' : 'none'">Mi Perfil</a>
+
+        <a mat-button routerLink="main" routerLinkActive="active"
+            [style.display]="isToolbarVisible ? 'flex' : 'none'">Sensores</a>
+
+        <a mat-button routerLink="about-us" routerLinkActive="active"
+            [style.display]="isToolbarVisible ? 'flex' : 'none'">Acerca de Nosotros</a>
+            
+        <a mat-button (click)="performLogout()"
+            [style.display]="isToolbarVisible ? 'flex' : 'none'">Cerrar Sesión</a>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>
         <router-outlet></router-outlet>

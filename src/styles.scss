@@ -63,12 +63,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: mat-color($simgas-web-primary);
 }
 
+.wrapper {
+  padding: 20px;
+}
+
 .login-wrapper {
-  background-image: url(assets/backgrounds/login-bg.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
+  padding: 50px;
 }
 
 .box {
@@ -87,30 +87,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   max-width: 330px;
 }
 
-.box.back {
-  transform: scale(.95);
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
-  top: -20px;
-  opacity: .8;
-  z-index: -1;
-}
-
-.box:before {
-  content: "";
-  width: 100%;
-  height: 30px;
-  border-radius: 10px;
-  position: absolute;
-  top: -10px;
-  background: rgba(255, 255, 255, .6);
-  left: 0;
-  transform: scale(.95);
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
-  z-index: -1;
-}
-
 .login-wrapper .form {
   min-width: 100%;
   max-width: 300px;
@@ -125,18 +101,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .login-wrapper .btn-block-margin {
   width: 100%;
   margin-top: 20px;
-}
-
-.login-wrapper mat-card-header {
-  text-align: center;
-  width: 100%;
-  display: block;
-  font-weight: 700;
-}
-
-.login-wrapper mat-card-header mat-card-title {
-  font-size: 30px;
-  margin: 0;
 }
 
 .login-wrapper .mat-card {
