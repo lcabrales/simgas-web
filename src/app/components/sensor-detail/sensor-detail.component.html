@@ -46,8 +46,8 @@
                 <mat-card-title class="primary-color">Lecturas de los últimos 7 días</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <div fxLayout="column">
-                    <table fxFlex *ngIf="dataSource.data" mat-table [dataSource]="dataSource">
+                <div fxLayout="column" fxFlex [style.display]="hasData() ? 'flex' : 'none'">
+                    <table fxFlex mat-table [dataSource]="dataSource">
                         <ng-container matColumnDef="date">
                             <th mat-header-cell *matHeaderCellDef>Fecha</th>
                             <td mat-cell *matCellDef="let element">
@@ -79,7 +79,7 @@
 
                     <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
                 </div>
-                <div *ngIf="!dataSource.data" fxFlex>
+                <div fxFlex  [style.display]="hasData() ? 'none' : 'flex'">
                     <span fxFlex class="text-center">No data available</span>
                 </div>
             </mat-card-content>

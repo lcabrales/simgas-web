@@ -48,6 +48,8 @@ export class SensorDetailComponent implements OnInit {
     );
 
     observable.subscribe(response => {
+      this.appComponent.hideLoading();
+
       if (response.Result.Code != 200 || response.Data.length == 0) {
         this.appComponent.showAlert(response.Result.Message);
         return;
@@ -83,8 +85,6 @@ export class SensorDetailComponent implements OnInit {
       }
 
       series.push(this.buildChartSeriesWith(response.Data))
-
-      this.appComponent.hideLoading();
       this.buildChartWith(series);
     });
   }
@@ -151,6 +151,10 @@ export class SensorDetailComponent implements OnInit {
         this.dataSource.data = response.Data;
       }
     });
+  }
+
+  hasData() {
+    return this.dataSource && this.dataSource.data && this.dataSource.data.length > 0;
   }
 
   parseDate(dateString: string) {
