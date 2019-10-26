@@ -8,6 +8,8 @@ import { StockChart } from 'angular-highcharts';
 import { DailyAverageData } from 'src/app/models/daily-average/daily-average.data';
 import { SeriesOptionsType } from 'highcharts';
 import { AppComponent } from 'src/app/app.component';
+import { interval } from "rxjs/internal/observable/interval";
+import { startWith, switchMap } from "rxjs/operators";
 
 @Component({
   selector: 'app-main',
@@ -30,6 +32,7 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.appComponent.showToolbar();
     this.updateLoggedInUser();
+
     this.fetchSensors();
 
     this.updateCols(window.innerWidth);
@@ -50,7 +53,11 @@ export class MainComponent implements OnInit {
 
   fetchSensors() {
     this.appComponent.showLoading();
-    this.sensorsService.getAll()
+    interval(60000)
+    .pipe(
+      startWith(0),
+      switchMap(() => this.sensorsService.getAll())
+    )
     .subscribe(response => {
       if (response.Result.Code != 200 || response.Data.length == 0) {
         this.appComponent.hideLoading();
